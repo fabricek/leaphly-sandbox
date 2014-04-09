@@ -6,7 +6,6 @@ use Acme\SimplePurchaseProcessBundle\Tests\Mock\MockedHttpClient;
 use Acme\SimplePurchaseProcessBundle\Tests\WebTestCase;
 use Guzzle\Http\Message\Response;
 use Guzzle\Plugin\Mock\MockPlugin;
-use Guzzle\Tests\Service\Mock\MockClient;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 class PurchaseControllerTest extends WebTestCase
@@ -35,7 +34,7 @@ class PurchaseControllerTest extends WebTestCase
     {
         $this->customSetUp($env, $fixtures, $registryName);
         $responses = $this->getFakeResponsesByUrl($url);
-        foreach($responses as $response){
+        foreach ($responses as $response) {
             MockedHttpClient::addResponse($response);
         }
 
@@ -89,7 +88,7 @@ class PurchaseControllerTest extends WebTestCase
             array(
                 'credit_card[card_holder]'       =>'test',
                 'credit_card[number]'            => 'aa',
-                'credit_card[expiry_date_year]'  => '2013',
+                'credit_card[expiry_date_year]'  => date("Y"),
                 'credit_card[expiry_date_month]' => '12',
                 'credit_card[cvv]'               =>'admin',
             ), 'POST');

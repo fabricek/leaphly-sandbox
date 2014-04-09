@@ -9,6 +9,7 @@ use Leaphly\Cart\Model\CartInterface;
 use Leaphly\Cart\Model\ItemInterface;
 use Leaphly\Cart\Handler\ItemHandlerInterface;
 use Leaphly\Cart\Handler\ItemHandler as BaseItemHandler;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 class ItemHandler extends BaseItemHandler implements ItemHandlerInterface
 {
@@ -37,6 +38,12 @@ class ItemHandler extends BaseItemHandler implements ItemHandlerInterface
         $item = $this->processForm('post', $parameters);
         //  Put here your Domain logic
         $product = $this->findProduct($parameters);
+
+        // handle if a product is not found
+        if (!$product) {
+            throw new NotAcceptableHttpException('Error on finding product');
+        }
+
         $item->setPrice($product->getPrice());
         // adding a 20% off, better use a conference discount service :).
         $item->setFinalPrice(bcsub($product->getPrice(), $product->getPrice()*20/100));
@@ -74,18 +81,18 @@ class ItemHandler extends BaseItemHandler implements ItemHandlerInterface
     /**
      * It assumes that your are using the product_id parameter method.
      *
-     * @param array $parameters
+     * @param  array      $parameters
      * @return object
      * @throws \Exception
      */
-    protected  function findProduct(array $parameters)
+    protected function findProduct(array $parameters)
     {
         $productRepository = $this->objectManager->getRepository($this->productClass);
 
-        if(!isset($parameters[ProductFamilyProviderInterface::PRODUCT_ID_PARAMETER])) {
+        if (!isset($parameters[ProductFamilyProviderInterface::PRODUCT_ID_PARAMETER])) {
             throw new \Exception("Product not found");
         }
-
-        return $productRepository->find($parameters[ProductFamilyProviderInterface::PRODUCT_ID_PARAMETER]);
+        $id = $parameters[ProductFamilyProviderInterface::PRODUCT_ID_PARAMETER];
+        return $productRepository->find($id);
     }
 }
