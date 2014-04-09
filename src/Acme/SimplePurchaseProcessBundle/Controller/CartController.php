@@ -31,9 +31,9 @@ class CartController extends Controller
             'SimplePurchaseProcessBundle:Cart:play.html.twig',
             array(
                 'tshirt_form' => $shirtForm->createView(),
-                'tshirt_product' => $productShirt[0],
+                'tshirt_product' => $productShirt,
                 'ticket_form' => $ticketForm->createView(),
-                'ticket_product' => $conference[0])
+                'ticket_product' => $conference)
         );
     }
 }
