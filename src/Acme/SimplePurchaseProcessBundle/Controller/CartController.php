@@ -15,7 +15,6 @@ class CartController extends Controller
      */
     public function playAction()
     {
-
         $conference = $this->get('doctrine_mongodb')
             ->getRepository('AcmeConferenceBundle:TicketProduct')
             ->findOneBy(array(), null);
