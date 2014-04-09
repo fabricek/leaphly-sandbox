@@ -3,30 +3,30 @@
 namespace Acme\SimplePurchaseProcessBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Acme\Product\ConferenceBundle\Document\TicketItem;
 use Acme\Product\ConferenceBundle\Form\TicketItemType;
 use Acme\Product\TshirtBundle\Form\TshirtItemType;
-use Acme\Product\TshirtBundle\Document\TshirtItem;
 
 class CartController extends Controller
 {
-
+    /**
+     * Thought to have fixtures see how to install the sandbox.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function playAction()
     {
 
         $conference = $this->get('doctrine_mongodb')
             ->getRepository('AcmeConferenceBundle:TicketProduct')
-            ->findBy(array(), null, $limit = 1);
-            //->getSingleResult();
+            ->findOneBy(array(), null);
 
-        $ticketForm = $this->createForm(new TicketItemType($conference[0]->getId()));
+        $ticketForm = $this->createForm(new TicketItemType($conference->getId()));
 
         $productShirt = $this->get('doctrine_mongodb')
             ->getRepository('AcmeTshirtBundle:TshirtProduct')
-            ->findBy(array(), null, $limit = 1);
-            //->getSingleResult();
+            ->findOneBy(array(), null);
 
-        $shirtForm = $this->createForm(new TshirtItemType($productShirt[0]->getId()));
+        $shirtForm = $this->createForm(new TshirtItemType($productShirt->getId()));
 
         return $this->render(
             'SimplePurchaseProcessBundle:Cart:play.html.twig',
