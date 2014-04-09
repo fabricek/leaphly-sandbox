@@ -3,7 +3,7 @@ doctrine_mongodb:
         default:
             server: mongodb://localhost:27017
             options: {}
-    default_database: test_database
+    default_database: test_leaphly
     document_managers:
         default:
             auto_mapping: true

@@ -1,4 +1,3 @@
-/web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -8,4 +7,16 @@
 /build/
 /vendor/
 /bin/
-/composer.phar
+/web/
+/composer.*
+/compareleaphly.txt
+/src/Acme/SimplePurchaseProcessBundle/Resources/views/TemplatesJS/1ORcart.html.twig
+/1OR.git.7z
+#mes rajouts
+/web/
+/composer.*
+/compareleaphly.txt
+/src/Acme/SimplePurchaseProcessBundle/Resources/views/TemplatesJS/1ORcart.html.twig
+/1OR.git.7z
+.svn
+.idea
